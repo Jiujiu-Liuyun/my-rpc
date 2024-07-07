@@ -12,4 +12,14 @@ public class AccountAssembly {
                 .sex(accountPO.getSex())
                 .build();
     }
+
+    public static AccountPO assemblyPO(Account account) {
+        AccountPO accountPO = new AccountPO();
+        accountPO.setId(account.getId());
+        accountPO.setUsername(account.getUsername());
+        accountPO.setPassword(account.getPassword());
+        accountPO.setSex(account.getSex());
+        return accountPO;
+    }
+
 }

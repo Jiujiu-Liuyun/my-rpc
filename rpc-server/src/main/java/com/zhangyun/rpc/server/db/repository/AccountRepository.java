@@ -15,4 +15,9 @@ public class AccountRepository {
         return accountPOMapper.selectByPrimaryKey(id);
     }
 
+    public Long insert(AccountPO accountPO) {
+        accountPOMapper.insert(accountPO);
+        return accountPO.getId();
+    }
+
 }

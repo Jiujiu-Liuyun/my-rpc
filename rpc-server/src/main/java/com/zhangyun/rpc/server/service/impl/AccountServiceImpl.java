@@ -17,4 +17,9 @@ public class AccountServiceImpl implements AccountService {
     public Account getAccountById(Long id) {
         return AccountAssembly.assembly(accountRepository.getAccountPOById(id));
     }
+
+    @Override
+    public Long insert(Account account) {
+        return accountRepository.insert(AccountAssembly.assemblyPO(account));
+    }
 }

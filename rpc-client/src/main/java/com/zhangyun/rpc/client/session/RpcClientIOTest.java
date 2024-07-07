@@ -1,34 +1,38 @@
 package com.zhangyun.rpc.client.session;
 
 import com.zhangyun.rpc.common.domain.Account;
+import com.zhangyun.rpc.common.domain.TestD;
+import com.zhangyun.rpc.common.service.AccountService;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.ServerSocket;
 import java.net.Socket;
 
 @Service
-public class RpcServer implements InitializingBean {
+@Slf4j
+public class RpcClientIOTest implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
         new Thread(() -> {
-            try (Socket socket = new Socket("127.0.0.1", 8899)) {
+            try (Socket socket = new Socket("127.0.0.1", 9999)) {
                 try(ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
                     ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
-                    oos.writeLong(1);
+                    TestD insert = TestD.builder().method("11").build();
+                    oos.writeObject(insert);
                     oos.flush();
-                    Account account = (Account) ois.readObject();
-                    System.out.println(account);
+                    String str = (String) ois.readObject();
+                    log.info("测试: resp:{}", str);
                 } catch (IOException | ClassNotFoundException e){
-                    System.out.println("从IO中读取数据错误");
+                    log.error("从IO中读取数据错误, e: {}", ExceptionUtils.getStackTrace(e));
                 }
             } catch (IOException e) {
-                System.out.println("服务器启动失败");
+                log.error("服务器启动失败, e: {}", ExceptionUtils.getStackTrace(e));
             }
         }).start();
     }

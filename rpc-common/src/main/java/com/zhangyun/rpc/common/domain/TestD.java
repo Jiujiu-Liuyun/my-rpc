@@ -6,12 +6,8 @@ import lombok.Data;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 
-@Builder
 @Data
-public class RpcRequest implements Serializable {
-    private Class<?> serviceClz;
+@Builder
+public class TestD implements Serializable {
     private String method;
-    private Object[] params;
-    private Class<?>[] paramsTypes;
-
 }
