@@ -16,7 +16,7 @@ public class TestController {
     @GetMapping("/test")
     @ApiOperation("test")
     public String test() {
-        return "success2222";
+        return "test success!!!";
     }
 
     @PostMapping("/insert")
