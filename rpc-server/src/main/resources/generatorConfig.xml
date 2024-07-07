@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <context id="MybatisGenerator" targetRuntime="MyBatis3">
+
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin"></plugin>
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+            <property name="javaFileEncoding" value="UTF-8"/>
+        </commentGenerator>
+
+        <!--替换成自己数据库的jdbcRef -->
+        <!--数据库链接地址账号密码-->
+        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:5002/test?serverTimezone=UTC&amp;characterEncoding=utf-8&amp;useSSL=false"
+                        userId="root" password="1003">
+        </jdbcConnection>
+
+        <!--load targetProject from properties-->
+        <javaModelGenerator targetPackage="com.zhangyun.rpc.server.db.po" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+        </javaModelGenerator>
+
+        <!--load targetProject from properties-->
+        <javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="com.zhangyun.rpc.server.db.mapper"  targetProject="src/main/java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <table tableName="account" domainObjectName="AccountPO">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+            <columnOverride column="sex" javaType="Integer"/>
+        </table>
+
+    </context>
+</generatorConfiguration>

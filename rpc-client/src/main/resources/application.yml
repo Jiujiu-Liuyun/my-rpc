@@ -1,0 +1,8 @@
+# HTTP服务启动端口
+server:
+  port: 8090
+
+spring:
+  mvc:
+    path match:
+      matching-strategy: ANT_PATH_MATCHER
